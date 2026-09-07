@@ -12,10 +12,10 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        .library(
-            name: "Spatial",
-            targets: ["Spatial"]
-        ),
+        .library(name: "Spatial", targets: ["Spatial"]),
+        .library(name: "Spatial Standard Library Integration", targets: ["Spatial Standard Library Integration"]),
+        .library(name: "Spatial Foundation Library Integration", targets: ["Spatial Foundation Library Integration"]),
+        .library(name: "Spatial Test Support", targets: ["Spatial Test Support"]),
     ],
     dependencies: [
         .package(
@@ -38,28 +38,51 @@ let package = Package(
                 .product(name: "Tagged", package: "swift-tagged"),
                 .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Scale", package: "swift-scale"),
-            ]
+            ],
+            path: "Sources/Spatial"
+        ),
+        .target(
+            name: "Spatial Standard Library Integration",
+            dependencies: [
+                .target(name: "Spatial"),
+            ],
+            path: "Sources/Spatial Standard Library Integration"
+        ),
+        .target(
+            name: "Spatial Foundation Library Integration",
+            dependencies: [
+                .target(name: "Spatial"),
+                .target(name: "Spatial Standard Library Integration"),
+            ],
+            path: "Sources/Spatial Foundation Library Integration"
+        ),
+        .target(
+            name: "Spatial Test Support",
+            dependencies: [
+                .target(name: "Spatial"),
+            ],
+            path: "Tests/Support"
         ),
         .testTarget(
             name: "Spatial Tests",
             dependencies: [
                 .target(name: "Spatial"),
                 .product(name: "Tagged", package: "swift-tagged"),
-                .product(
-                    name: "Tagged Standard Library Integration",
-                    package: "swift-tagged"
-                ),
+                .product(name: "Tagged Standard Library Integration", package: "swift-tagged"),
                 .product(name: "Numeric", package: "swift-numeric"),
-                .product(name: "Real", package: "swift-numeric"),
                 .product(name: "Scale", package: "swift-scale"),
-            ]
+                .target(name: "Spatial Test Support"),
+                .target(name: "Spatial Standard Library Integration"),
+                .target(name: "Spatial Foundation Library Integration"),
+            ],
+            path: "Tests/Spatial Tests"
         ),
     ],
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    let ecosystem: [SwiftSetting] = [
+for target in package.targets {
+    target.swiftSettings = [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
@@ -68,8 +91,4 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableExperimentalFeature("Lifetimes"),
         .enableUpcomingFeature("InferIsolatedConformances"),
     ]
-
-    let package: [SwiftSetting] = []
-
-    target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
 }

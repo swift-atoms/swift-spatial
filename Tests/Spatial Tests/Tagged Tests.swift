@@ -1,4 +1,4 @@
-import Real
+import Numeric
 import Scale
 import Tagged
 import Tagged_Standard_Library_Integration
