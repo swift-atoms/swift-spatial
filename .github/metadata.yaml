@@ -1,4 +1,3 @@
-# .github/metadata.yaml
 description: "Phantom-typed spatial dimensions — coordinates, displacements, extents, and measures with tagged value carriers and quantization — for Swift."
 topics:
   - primitives

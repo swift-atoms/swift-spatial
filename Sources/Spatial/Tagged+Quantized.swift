@@ -34,7 +34,6 @@ extension Tagged::Tagged where Tag: Spatial, Tag.Space: Quantizer::Quantized, Un
         catch { preconditionFailure("Spatial ticks do not fit Int64: \(error)") }
     }
 
-    /// Explicitly requests tick storage, reporting invalid grids and range failures.
     public func ticks<T: FixedWidthInteger>(as type: T.Type) throws(Quantizer<Underlying>.Error) -> T {
         let grid = try Quantizer<Underlying>(quantum: Tag.Space.quantum(as: Underlying.self))
         return try grid.ticks(for: underlying, as: type)
