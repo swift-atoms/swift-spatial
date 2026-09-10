@@ -1,6 +1,5 @@
 import Spatial
 import Tagged
-import Tagged_Standard_Library_Integration
 import Testing
 
 @Suite

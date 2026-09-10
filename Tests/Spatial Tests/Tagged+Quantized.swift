@@ -1,9 +1,9 @@
 import Spatial
-import Numeric
-import Tagged_Standard_Library_Integration
+import Quantizer
+import Tagged
 import Testing
 
-private enum TestSpace: Numeric::Numeric.Quantized {}
+private enum TestSpace: Quantizer::Quantized {}
 
 extension TestSpace {
     typealias Scalar = Double

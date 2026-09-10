@@ -7,13 +7,6 @@ public func sqrt<Space, Scalar: FloatingPoint>(
     Tagged::Tagged(_unchecked: value.underlying.squareRoot())
 }
 
-@inlinable
-public func sqrt<Space, Scalar: FloatingPoint>(
-    _ value: Tagged::Tagged<Volume<Space>, Scalar>
-) -> Tagged::Tagged<Area<Space>, Scalar> {
-    Tagged::Tagged(_unchecked: value.underlying.squareRoot())
-}
-
 extension Tagged::Tagged where Tag: Spatial {
 
     @_disfavoredOverload
